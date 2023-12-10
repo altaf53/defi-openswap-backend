@@ -1,3 +1,4 @@
 const walletController = require("./wallet");
+const transactionController = require("./transaction");
 
-module.exports = { walletController };
+module.exports = { walletController, transactionController };
