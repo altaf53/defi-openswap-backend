@@ -9,12 +9,12 @@ const bodyParser = require("body-parser");
 app.use(cors());
 app.use(bodyParser.json());
 
-const port = 3000;
+const port = 4000;
 
 app.use(apiRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Welcome to GBC Token Swap Backend!");
+  res.send("Welcome to Open Swap Backend!");
 });
 
 app.listen(port, () => {
