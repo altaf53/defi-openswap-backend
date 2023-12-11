@@ -19,7 +19,7 @@ const getcontractSymbol = async (contractAddress) => {
 
 const contractsymbolAdder = async (arrayOfTokensInfo) => {
     for(let i = 0; i < arrayOfTokensInfo.length; i++){
-        const symbol = await getcontractSymbol(arrayOfTokensInfo[i].id);
+        const symbol = await getcontractSymbol(arrayOfTokensInfo[i].token);
         arrayOfTokensInfo[i].symbol = symbol;
     }
     console.log("arrray final ", arrayOfTokensInfo);

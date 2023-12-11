@@ -1,5 +1,6 @@
 const { types } = require("web3");
-const { fetchAllTokensFromSubgraph, fetchUserSupplyHistory, fetchUserInfo } = require("../services/tokens.services")
+const { fetchAllTokensFromSubgraph, fetchUserSupplyHistory, fetchUserInfo } = require("../services/tokens.services");
+const { contractsymbolAdder } = require("../utils/contractHelper");
 
 
 
@@ -36,7 +37,11 @@ const getUserHistory = async (req,res) => {
             throw new TypeError(result.message);
         }
 
-        return res.status(result.statusCode).json({result: result.data})
+        console.log(result.data)
+        const fianlResult = await contractsymbolAdder(result.data.userSuppliedTokens);
+        console.log("final result ", fianlResult);
+
+        return res.status(result.statusCode).json({result: fianlResult})
 
     } catch(err) {
         if(err instanceof TypeError){
