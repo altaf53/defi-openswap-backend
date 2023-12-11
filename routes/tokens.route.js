@@ -4,6 +4,6 @@ const tokensRoutes = express.Router({ mergeParams: true });
 
 tokensRoutes.post("/tokeninfo",getAllTokens);
 tokensRoutes.post("/userSupplyHistory",getUserHistory);
-tokensRoutes.post("/userInfo",getUserInfo)
+tokensRoutes.post("/userInfo",getUserInfo);
 
 module.exports = tokensRoutes
