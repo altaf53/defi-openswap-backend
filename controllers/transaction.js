@@ -62,11 +62,12 @@ const deposit = async (req, res, next) => {
 
 const approve = async (req, res, next) => {
   try {
+    const { contractAddress } = req.body;
     const amountInDecimal = ethers.parseUnits(
       req.body.amount.toString(),
       tokenDecimals
     );
-    const txn = await erc20Approve(req.body.address, amountInDecimal);
+    const txn = await erc20Approve(req.body.address, contractAddress, amountInDecimal);
     return res.json(txn);
   } catch (error) {
     console.log("error", error);

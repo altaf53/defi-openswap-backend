@@ -40,13 +40,19 @@ const getTokenInfo = async (address) => {
   }
 };
 
-const erc20Approve = async (address, amount) => {
+const erc20Approve = async (address, contractAdd, amount) => {
   try {
     const params = [contractAddress, amount];
+    const erc20Contract = new ethers.Contract(
+      contractAdd,
+      erc20,
+      provider
+    );
+    
     const data = erc20Contract.interface.encodeFunctionData("approve", params);
 
     const transactionObject = {
-      to: erc20ContractAddress,
+      to: contractAdd,
       data: data,
       chainId: "11155111",
       from: address,
