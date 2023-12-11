@@ -4,6 +4,7 @@ const {
   erc20Approve,
   addLiquidity,
   swap,
+  buyLiquidity,
 } = require("../services/openSwap");
 const ethers = require("ethers");
 const { bigIntToDecimal } = require("../utils/helper");
@@ -67,7 +68,11 @@ const approve = async (req, res, next) => {
       req.body.amount.toString(),
       tokenDecimals
     );
-    const txn = await erc20Approve(req.body.address, contractAddress, amountInDecimal);
+    const txn = await erc20Approve(
+      req.body.address,
+      contractAddress,
+      amountInDecimal
+    );
     return res.json(txn);
   } catch (error) {
     console.log("error", error);
@@ -95,10 +100,31 @@ const swapTransaction = async (req, res, next) => {
   }
 };
 
+const buyBackLiquidity = async (req, res) => {
+  try {
+    const amountInDecimal = ethers.parseUnits(
+      req.body.amountMin.toString(),
+      tokenDecimals
+    );
+
+    const txn = await buyLiquidity(
+      req.body.userAddress,
+      req.body.tokenAddress,
+      amountInDecimal
+    );
+
+    return res.json(txn);
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json(error);
+  }
+};
+
 module.exports = {
   getQuoteFromOpenSwap,
   getTokenInfoFromOpenSwap,
   approve,
   deposit,
   swapTransaction,
+  buyBackLiquidity,
 };

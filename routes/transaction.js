@@ -17,4 +17,6 @@ transactionRoutes.post("/deposit", transactionController.deposit);
 
 transactionRoutes.post("/swap", transactionController.swapTransaction);
 
+transactionRoutes.post("/buyback", transactionController.buyBackLiquidity);
+
 module.exports = transactionRoutes;

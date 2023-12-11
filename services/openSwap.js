@@ -43,12 +43,8 @@ const getTokenInfo = async (address) => {
 const erc20Approve = async (address, contractAdd, amount) => {
   try {
     const params = [contractAddress, amount];
-    const erc20Contract = new ethers.Contract(
-      contractAdd,
-      erc20,
-      provider
-    );
-    
+    const erc20Contract = new ethers.Contract(contractAdd, erc20, provider);
+
     const data = erc20Contract.interface.encodeFunctionData("approve", params);
 
     const transactionObject = {
@@ -100,4 +96,31 @@ const swap = async (userAddress, tokenIn, tokenOut, amountIn, amountOutMin) => {
   }
 };
 
-module.exports = { getQuote, getTokenInfo, erc20Approve, addLiquidity, swap };
+const buyLiquidity = async (userAddress, tokenAddress, amountMin) => {
+  try {
+    const params = [tokenAddress, amountMin];
+    const txnInfo = contract.interface.encodeFunctionData(
+      "buyBackLiquidity",
+      params
+    );
+    const transactionObject = {
+      to: contractAddress,
+      data: txnInfo,
+      chainId: "11155111",
+      from: userAddress,
+    };
+    return transactionObject;
+  } catch (error) {
+    console.error("error buyLiquidity", error);
+    throw new Error("An error occurred while getting the buyLiquidity.");
+  }
+};
+
+module.exports = {
+  getQuote,
+  getTokenInfo,
+  erc20Approve,
+  addLiquidity,
+  swap,
+  buyLiquidity,
+};
